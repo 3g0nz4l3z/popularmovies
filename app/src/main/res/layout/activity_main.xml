@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.exequiel.android.popularmovies.app.MainActivity"
+    android:orientation="horizontal">
+    <fragment
+        android:name="com.exequiel.android.popularmovies.app.MoviesFragment"
+        android:id="@+id/movies_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+   <!-- <fragment
+        android:name="com.exequiel.android.popularmovies.app.MovieFragment"
+        android:id="@+id/movie_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        /> !-->
+</LinearLayout>
