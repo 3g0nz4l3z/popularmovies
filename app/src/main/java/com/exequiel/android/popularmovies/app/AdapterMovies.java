@@ -2,12 +2,11 @@ package com.exequiel.android.popularmovies.app;
 
 import java.util.List;
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.exequiel.android.popularmovies.app.Movie;
@@ -18,7 +17,7 @@ import com.exequiel.android.popularmovies.app.Movie;
 public class AdapterMovies extends ArrayAdapter<Movie> {
     private Context context;
     private List<Movie> movies;
-    private ImageButton imgBttnCover;
+    private ImageView imgCover;
 
     public AdapterMovies(Context context, List<Movie> movies){
         super(context, R.layout.cover_view, movies);
@@ -30,8 +29,8 @@ public class AdapterMovies extends ArrayAdapter<Movie> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.cover_view, parent, false);
-        imgBttnCover = (ImageButton) rowView.findViewById(R.id.ib_cover);
-        Glide.with(context).load(movies.get(position).getCoverUrl()).into(imgBttnCover);
+        imgCover = (ImageView) rowView.findViewById(R.id.ib_cover);
+        Glide.with(context).load(movies.get(position).getCoverUrl()).into(imgCover);
         return super.getView(position, convertView, parent);
     }
 }
