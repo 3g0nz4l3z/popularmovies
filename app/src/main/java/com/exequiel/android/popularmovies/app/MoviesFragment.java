@@ -27,16 +27,16 @@ public class MoviesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.movies, container, false);
         gVMovies =  (GridView) rootView.findViewById(R.id.movies);
-        Movie m1 = new Movie("http://i.imgur.com/DvpvklR.png","","", 0, "");
-        Movie m2 = new Movie("http://i.imgur.com/DvpvklR.png","","", 0, "");
-        Movie m3 = new Movie("http://i.imgur.com/DvpvklR.png","","", 0, "");
-        Movie m4 = new Movie("http://i.imgur.com/DvpvklR.png","","", 0, "");
+        Movie m1 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
+        Movie m2 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
+        Movie m3 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
+        Movie m4 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
         lMovies = new ArrayList<Movie>();
         lMovies.add(m1);
         lMovies.add(m2);
         lMovies.add(m3);
         lMovies.add(m4);
-        AAMovies = new AdapterMovies(getActivity().getApplicationContext(), lMovies);
+        AAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
         gVMovies.setAdapter(AAMovies);
         return rootView;
     }
