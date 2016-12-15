@@ -29,8 +29,8 @@ public class AdapterMovies extends ArrayAdapter<Movie> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.cover_view, parent);
-        imgBttnCover = (ImageButton) rowView.findViewById(R.id.cover);
+        View rowView = inflater.inflate(R.layout.cover_view, parent, false);
+        imgBttnCover = (ImageButton) rowView.findViewById(R.id.ib_cover);
         Glide.with(context).load(movies.get(position).getCoverUrl()).into(imgBttnCover);
         return super.getView(position, convertView, parent);
     }
