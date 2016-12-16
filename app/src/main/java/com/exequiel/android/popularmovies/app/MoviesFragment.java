@@ -1,11 +1,12 @@
 package com.exequiel.android.popularmovies.app;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
@@ -27,17 +28,39 @@ public class MoviesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.movies, container, false);
         gVMovies =  (GridView) rootView.findViewById(R.id.movies);
-        Movie m1 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
-        Movie m2 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
-        Movie m3 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
-        Movie m4 = new Movie("https://i.imgur.com/DvpvklR.png","","", 0, "");
+        Movie m1 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","Super locos","Estos amigos estan relocos y nadie los puede parar", 5, "20161212");
+        Movie m2 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","Un castillo llamado amor","El amor est aen la puerta", 5, "20151212");
+        Movie m3 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m4 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m5 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m6 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m7 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m8 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m9 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m10 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m11 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
+        Movie m12 = new Movie("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg","","", 0, "");
         lMovies = new ArrayList<Movie>();
         lMovies.add(m1);
         lMovies.add(m2);
         lMovies.add(m3);
         lMovies.add(m4);
+        lMovies.add(m5);
+        lMovies.add(m6);
+        lMovies.add(m7);
+        lMovies.add(m8);
+        lMovies.add(m9);
+        lMovies.add(m10);
+        lMovies.add(m11);
+        lMovies.add(m12);
         AAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
         gVMovies.setAdapter(AAMovies);
+        gVMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getFragmentManager().beginTransaction().replace(R.id.fragment_cointainer, new MovieFragment()).commit();
+            }
+        });
         return rootView;
     }
 
