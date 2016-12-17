@@ -17,7 +17,10 @@
             android:text="TextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".45"
+            android:layout_weight=".90"
+            android:gravity="left"
+            android:padding="2dp"
+            android:textSize="36dp"
             android:id="@+id/textViewTitle" />
 
         <TextView
@@ -25,6 +28,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".10"
+            android:gravity="right"
+            android:textSize="36dp"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/textViewRate" />
     </LinearLayout>
 
@@ -54,7 +61,11 @@
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3" />
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_marginLeft="5dp"
+            android:padding="2dp"
+            android:textSize="28dp"
+            android:id="@+id/textViewSynopsis" />
     </LinearLayout>
 </LinearLayout>

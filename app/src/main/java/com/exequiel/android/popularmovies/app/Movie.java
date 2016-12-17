@@ -8,10 +8,10 @@ public class Movie {
     private String coverUrl;
     private String originalTitle;
     private String synopsis;
-    private int userRating;
+    private String userRating;
     private String releaseDate;
 
-    public Movie(String coverUrl, String originalTitle, String synopsis, int userRating, String releaseDate)
+    public Movie(String coverUrl, String originalTitle, String synopsis, String userRating, String releaseDate)
     {
         this.coverUrl = coverUrl;
         this.originalTitle = originalTitle;
@@ -32,7 +32,7 @@ public class Movie {
         return synopsis;
     }
 
-    public int getUserRating() {
+    public String getUserRating() {
         return userRating;
     }
 

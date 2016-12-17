@@ -1,6 +1,7 @@
 package com.exequiel.android.popularmovies.app;
-
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -17,7 +18,9 @@ public class MainActivity extends AppCompatActivity {
             if (savedInstanceState != null) {return;}
 
             MoviesFragment mf = new MoviesFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_cointainer, mf).commit();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(R.id.fragment_cointainer, mf).commit();
         }
     }
 }
