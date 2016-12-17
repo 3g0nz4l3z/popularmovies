@@ -1,6 +1,7 @@
 package com.exequiel.android.popularmovies.app;
 
 import android.os.AsyncTask;
+import android.text.method.MovementMethod;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +51,17 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         try {
             jsonMovies = new JSONObject(urlString);
             JSONArray jsonAMovies = jsonMovies.getJSONArray("results");
+            ManagerMovies.getInstance().emptyMovies();
+            for (int i = 0; i < jsonAMovies.length(); i++) {
+                JSONObject jsMovie = jsonAMovies.getJSONObject(i);
+
+                String releaseDate = jsMovie.getString("posterPath");
+                String userRating = jsMovie.getString("vote_average");
+                String synopsis = jsMovie.getString("overview");
+                String originalTitle = jsMovie.getString("original_title");
+                String coverUrl = jsMovie.getString("poster_path");
+                Movie movie = new Movie(coverUrl, originalTitle, synopsis, userRating, releaseDate);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

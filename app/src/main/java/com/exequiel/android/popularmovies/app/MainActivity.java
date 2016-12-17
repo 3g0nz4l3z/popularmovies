@@ -1,9 +1,8 @@
 package com.exequiel.android.popularmovies.app;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ManagerMovies.getInstance().fetch_by_popularity(getResources().getString(R.api_key.themoviedb));
         /**
          * Implementation found in https://developer.android.com/training/basics/fragments/fragment-ui.html#AddAtRuntime
          */
