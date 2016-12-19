@@ -1,9 +1,14 @@
 package com.exequiel.android.popularmovies.app;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,7 +23,7 @@ import java.util.List;
  * This class manages everything related to the view of the movies when the app start
  */
 
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment implements AdapterRefresher{
     private String TAG = MoviesFragment.class.getCanonicalName();
     private GridView gVMovies;
     private ArrayAdapter<Movie> AAMovies;
@@ -26,10 +31,15 @@ public class MoviesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView()");
+        setHasOptionsMenu(true);
+        ManagerMovies.getInstance().fetch_by_popularity(MoviesFragment.this);
         View rootView = inflater.inflate(R.layout.movies, container, false);
         gVMovies =  (GridView) rootView.findViewById(R.id.movies);
         lMovies = ManagerMovies.getInstance().getMovies();
+        Log.d(TAG, lMovies.size()+"");
         AAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
+        Log.d(TAG, AAMovies.getCount()+"");
         gVMovies.setAdapter(AAMovies);
         gVMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,4 +61,35 @@ public class MoviesFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_sort_movies, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.sort_by_popularity:
+                ManagerMovies.getInstance().fetch_by_popularity(MoviesFragment.this);
+                break;
+            case R.id.sort_by_rated:
+                ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void refresh() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "refresh()");
+                gVMovies.invalidateViews();
+                gVMovies.setAdapter(AAMovies);
+
+            }
+        });
+    }
 }

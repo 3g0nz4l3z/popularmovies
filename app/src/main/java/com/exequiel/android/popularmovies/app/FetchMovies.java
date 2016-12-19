@@ -2,6 +2,8 @@ package com.exequiel.android.popularmovies.app;
 
 import android.os.AsyncTask;
 import android.text.method.MovementMethod;
+import android.util.Log;
+import android.widget.Adapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +22,15 @@ import java.util.Scanner;
  */
 
 public class FetchMovies extends AsyncTask<String, Void, Boolean> {
+    private String TAG = FetchMovies.this.getClass().getCanonicalName();
+    AdapterRefresher adapterRefresher;
+    public FetchMovies(){
+
+    }
+
+    public FetchMovies(AdapterRefresher adapterRefresher){
+        this.adapterRefresher = adapterRefresher;
+    }
     @Override
     protected Boolean doInBackground(String... params) {
         /**
@@ -32,7 +43,7 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             parceJason(in);
-
+        Log.d(TAG, urlConnection.getResponseMessage());
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return false;
@@ -42,6 +53,8 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         } finally {
             urlConnection.disconnect();
         }
+
+        adapterRefresher.refresh();
     return true;
     }
 
@@ -55,12 +68,14 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
             for (int i = 0; i < jsonAMovies.length(); i++) {
                 JSONObject jsMovie = jsonAMovies.getJSONObject(i);
 
-                String releaseDate = jsMovie.getString("posterPath");
+                String releaseDate = jsMovie.getString("release_date");
                 String userRating = jsMovie.getString("vote_average");
                 String synopsis = jsMovie.getString("overview");
                 String originalTitle = jsMovie.getString("original_title");
                 String coverUrl = jsMovie.getString("poster_path");
                 Movie movie = new Movie(coverUrl, originalTitle, synopsis, userRating, releaseDate);
+                Log.d(TAG, movie.getOriginalTitle()+", "+movie.getCoverUrl());
+                ManagerMovies.getInstance().addMovie(movie);
             }
         } catch (JSONException e) {
             e.printStackTrace();

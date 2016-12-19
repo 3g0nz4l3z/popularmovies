@@ -21,7 +21,7 @@ public class Movie {
     }
 
     public String getCoverUrl() {
-        return coverUrl;
+        return "http://image.tmdb.org/t/p/w185"+coverUrl;
     }
 
     public String getOriginalTitle() {

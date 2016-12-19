@@ -12,6 +12,7 @@ import java.util.List;
 
 public class ManagerMovies {
     private static final ManagerMovies INSTANCE = new ManagerMovies();
+    private final String api_key = ""; //Please insert api key here
     private  static List<Movie> movies = new ArrayList<Movie>();
     private ManagerMovies(){};
 
@@ -22,11 +23,25 @@ public class ManagerMovies {
     public void fetch_by_popularity(String api_key){
         new FetchMovies().execute("http://api.themoviedb.org/3/movie/popular?api_key="+api_key);
     };
+    public void fetch_by_popularity(){
+        new FetchMovies().execute("http://api.themoviedb.org/3/movie/popular?api_key="+api_key);
+    };
+
+    public void fetch_by_popularity(AdapterRefresher adapterRefresher){
+        new FetchMovies(adapterRefresher).execute("http://api.themoviedb.org/3/movie/popular?api_key="+api_key);
+    };
 
     public void fetch_by_top_rated(String api_key){
         new FetchMovies().execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
     };
 
+    public void fetch_by_top_rated(){
+        new FetchMovies().execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
+    };
+
+    public void fetch_by_top_rated(AdapterRefresher adapterRefresher){
+        new FetchMovies(adapterRefresher).execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
+    };
     public void emptyMovies(){
         movies = new ArrayList<Movie>();
     }
