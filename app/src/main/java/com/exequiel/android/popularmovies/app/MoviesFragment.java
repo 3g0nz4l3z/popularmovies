@@ -26,21 +26,27 @@ import java.util.List;
 public class MoviesFragment extends Fragment implements AdapterRefresher{
     private String TAG = MoviesFragment.class.getCanonicalName();
     private GridView gVMovies;
-    private ArrayAdapter<Movie> AAMovies;
+    private ArrayAdapter<Movie> aAMovies;
     private List<Movie> lMovies;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView()");
         setHasOptionsMenu(true);
-        ManagerMovies.getInstance().fetch_by_popularity(MoviesFragment.this);
         View rootView = inflater.inflate(R.layout.movies, container, false);
         gVMovies =  (GridView) rootView.findViewById(R.id.movies);
         lMovies = ManagerMovies.getInstance().getMovies();
         Log.d(TAG, lMovies.size()+"");
-        AAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
-        Log.d(TAG, AAMovies.getCount()+"");
-        gVMovies.setAdapter(AAMovies);
+        aAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
+        Log.d(TAG, aAMovies.getCount()+"");
+        gVMovies.setAdapter(aAMovies);
         gVMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,9 +77,11 @@ public class MoviesFragment extends Fragment implements AdapterRefresher{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.sort_by_popularity:
+                Log.d(TAG, "sort by popularity");
                 ManagerMovies.getInstance().fetch_by_popularity(MoviesFragment.this);
                 break;
             case R.id.sort_by_rated:
+                Log.d(TAG, "sort by rated");
                 ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
                 break;
         }
@@ -86,9 +94,9 @@ public class MoviesFragment extends Fragment implements AdapterRefresher{
             @Override
             public void run() {
                 Log.d(TAG, "refresh()");
+                aAMovies.notifyDataSetChanged();
                 gVMovies.invalidateViews();
-                gVMovies.setAdapter(AAMovies);
-
+                gVMovies.setAdapter(aAMovies);
             }
         });
     }

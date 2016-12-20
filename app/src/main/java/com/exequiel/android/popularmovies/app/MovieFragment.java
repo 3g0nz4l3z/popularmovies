@@ -1,6 +1,7 @@
 package com.exequiel.android.popularmovies.app;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,5 +53,6 @@ public class MovieFragment extends Fragment {
         }
         return rootView;
     }
+
 
 }

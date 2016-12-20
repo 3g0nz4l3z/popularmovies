@@ -43,7 +43,7 @@ public class ManagerMovies {
         new FetchMovies(adapterRefresher).execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
     };
     public void emptyMovies(){
-        movies = new ArrayList<Movie>();
+        movies.clear();
     }
 
     public void addMovie(Movie movie){

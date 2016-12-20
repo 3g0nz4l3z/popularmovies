@@ -31,8 +31,15 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
     public FetchMovies(AdapterRefresher adapterRefresher){
         this.adapterRefresher = adapterRefresher;
     }
+
+    @Override
+    protected void onPreExecute() {
+        ManagerMovies.getInstance().emptyMovies();
+    }
+
     @Override
     protected Boolean doInBackground(String... params) {
+        Log.d(TAG, "doInBackground()");
         /**
          * Implementation found https://developer.android.com/reference/java/net/HttpURLConnection.html
          */
@@ -53,9 +60,17 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         } finally {
             urlConnection.disconnect();
         }
-
-        adapterRefresher.refresh();
     return true;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        try {
+            adapterRefresher.refresh();
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }
     }
 
     private void parceJason(InputStream in){
@@ -64,7 +79,6 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         try {
             jsonMovies = new JSONObject(urlString);
             JSONArray jsonAMovies = jsonMovies.getJSONArray("results");
-            ManagerMovies.getInstance().emptyMovies();
             for (int i = 0; i < jsonAMovies.length(); i++) {
                 JSONObject jsMovie = jsonAMovies.getJSONObject(i);
 

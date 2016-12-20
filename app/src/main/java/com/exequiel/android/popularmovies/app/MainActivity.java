@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private String TAG = MainActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
         if (findViewById(R.id.fragment_cointainer) != null) {
             if (savedInstanceState != null) {
                 return;
-            }
+            }else {
 
-            MoviesFragment mf = new MoviesFragment();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_cointainer, mf).commit();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                MoviesFragment mf = new MoviesFragment();
+
+                ft.add(R.id.fragment_cointainer, mf).commit();
+            }
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
