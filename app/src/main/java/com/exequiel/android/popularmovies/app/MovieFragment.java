@@ -53,6 +53,4 @@ public class MovieFragment extends Fragment {
         }
         return rootView;
     }
-
-
 }

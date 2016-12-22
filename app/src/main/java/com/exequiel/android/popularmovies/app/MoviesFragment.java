@@ -72,7 +72,9 @@ public class MoviesFragment extends Fragment implements Refresher{
                 FragmentTransaction ft = fm.beginTransaction();
                 MovieFragment mf = new MovieFragment();
                 mf.setArguments(movieBundle);
-                ft.replace(R.id.fragment_cointainer, mf).commit();
+                ft.replace(R.id.fragment_cointainer, mf);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
         return rootView;
