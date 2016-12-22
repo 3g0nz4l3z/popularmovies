@@ -27,8 +27,8 @@ public class ManagerMovies {
         new FetchMovies().execute("http://api.themoviedb.org/3/movie/popular?api_key="+api_key);
     };
 
-    public void fetch_by_popularity(AdapterRefresher adapterRefresher){
-        new FetchMovies(adapterRefresher).execute("http://api.themoviedb.org/3/movie/popular?api_key="+api_key);
+    public void fetch_by_popularity(Refresher refresher){
+        new FetchMovies(refresher).execute("http://api.themoviedb.org/3/movie/popular?api_key="+api_key);
     };
 
     public void fetch_by_top_rated(String api_key){
@@ -39,8 +39,8 @@ public class ManagerMovies {
         new FetchMovies().execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
     };
 
-    public void fetch_by_top_rated(AdapterRefresher adapterRefresher){
-        new FetchMovies(adapterRefresher).execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
+    public void fetch_by_top_rated(Refresher refresher){
+        new FetchMovies(refresher).execute("http://api.themoviedb.org/3/movie/top_rated?api_key="+api_key);
     };
     public void emptyMovies(){
         movies.clear();

@@ -15,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.app.FragmentManager;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +26,18 @@ import java.util.List;
  * This class manages everything related to the view of the movies when the app start
  */
 
-public class MoviesFragment extends Fragment implements AdapterRefresher{
+public class MoviesFragment extends Fragment implements Refresher{
     private String TAG = MoviesFragment.class.getCanonicalName();
+    private LinearLayout lLMovies;
     private GridView gVMovies;
     private ArrayAdapter<Movie> aAMovies;
     private List<Movie> lMovies;
+    private LinearLayout progressBarContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
     }
 
     @Override
@@ -41,7 +45,14 @@ public class MoviesFragment extends Fragment implements AdapterRefresher{
         Log.d(TAG, "onCreateView()");
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.movies, container, false);
-        gVMovies =  (GridView) rootView.findViewById(R.id.movies);
+
+        lLMovies =  (LinearLayout) rootView.findViewById(R.id.llMovies);
+        /**
+         * Progress bar based on http://stackoverflow.com/a/12559601
+         */
+        progressBarContainer = (LinearLayout) lLMovies.findViewById(R.id.progressBarContainer);
+        ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
+        gVMovies =  (GridView) lLMovies.findViewById(R.id.movies);
         lMovies = ManagerMovies.getInstance().getMovies();
         Log.d(TAG, lMovies.size()+"");
         aAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
@@ -99,5 +110,16 @@ public class MoviesFragment extends Fragment implements AdapterRefresher{
                 gVMovies.setAdapter(aAMovies);
             }
         });
+    }
+
+    @Override
+    public void start_progress_bar() {
+            progressBarContainer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void end_progress_bar() {
+        progressBarContainer.setVisibility(View.GONE);
+
     }
 }

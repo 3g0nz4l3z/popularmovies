@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.text.method.MovementMethod;
 import android.util.Log;
 import android.widget.Adapter;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,18 +24,19 @@ import java.util.Scanner;
 
 public class FetchMovies extends AsyncTask<String, Void, Boolean> {
     private String TAG = FetchMovies.this.getClass().getCanonicalName();
-    AdapterRefresher adapterRefresher;
+    Refresher refresher;
     public FetchMovies(){
 
     }
 
-    public FetchMovies(AdapterRefresher adapterRefresher){
-        this.adapterRefresher = adapterRefresher;
+    public FetchMovies(Refresher refresher){
+        this.refresher = refresher;
     }
 
     @Override
     protected void onPreExecute() {
         ManagerMovies.getInstance().emptyMovies();
+        refresher.start_progress_bar();
     }
 
     @Override
@@ -66,7 +68,8 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean aBoolean) {
         try {
-            adapterRefresher.refresh();
+            refresher.refresh();
+            refresher.end_progress_bar();
         }catch(Exception e){
             e.printStackTrace();
 
