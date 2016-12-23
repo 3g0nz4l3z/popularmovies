@@ -12,34 +12,36 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".10">
+        android:layout_weight=".05">
 
         <TextView
-            android:text="TextView"
-            android:layout_width="0dp"
+            android:text="This is a movie (20161112)"
+            android:layout_width="0sp"
             android:layout_height="match_parent"
             android:layout_weight=".90"
             android:gravity="left"
-            android:padding="2dp"
-            android:textSize="36dp"
-            android:id="@+id/textViewTitle" />
+            android:textSize="20sp"
+            android:layout_marginLeft="5sp"
+            android:id="@+id/textViewTitle"
+            style="@android:style/TextAppearance.Small"/>
 
         <TextView
-            android:text="TextView"
-            android:layout_width="0dp"
+            android:text="9.1"
+            android:layout_width="0sp"
             android:layout_height="match_parent"
             android:layout_weight=".10"
             android:gravity="right"
-            android:textSize="36dp"
-            android:layout_marginRight="5dp"
-            android:id="@+id/textViewRate" />
+            android:textSize="20sp"
+            android:layout_marginRight="5sp"
+            android:id="@+id/textViewRate"
+            style="@android:style/TextAppearance.Small" />
     </LinearLayout>
 
     <RelativeLayout
         android:background="@color/colorPale"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="0sp"
         android:layout_weight=".55">
 
         <ImageView
@@ -57,18 +59,19 @@
         android:background="@color/colorPale"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="0sp"
         android:layout_weight=".35">
 
         <TextView
-            android:text="TextView"
+            android:text="The true history of a man fighting for a app well done or daying traing will schudleling a gibbering thigns wile writing becouse what want to spend a week of his backations on the beach"
             android:textColor="@color/colorText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left"
-            android:layout_marginLeft="5dp"
-            android:padding="2dp"
-            android:textSize="28dp"
-            android:id="@+id/textViewSynopsis" />
+            android:layout_marginLeft="5sp"
+            android:padding="2sp"
+            android:textSize="20sp"
+            android:id="@+id/textViewSynopsis"
+            style="@android:style/TextAppearance.Small"/>
     </ScrollView>
 </LinearLayout>
