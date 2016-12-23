@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ManagerMovies {
     private static final ManagerMovies INSTANCE = new ManagerMovies();
-    private final String api_key = ""; //Please insert api key here
+    private final String api_key = BuildConfig.THEMOVIEDBAPIKEY; //Please insert api key here
     private  static List<Movie> movies = new ArrayList<Movie>();
     private ManagerMovies(){};
 
