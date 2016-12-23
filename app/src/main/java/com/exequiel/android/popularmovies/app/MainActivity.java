@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MoviesFragment mf;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                MoviesFragment mf = new MoviesFragment();
+                mf = new MoviesFragment();
 
                 ft.add(R.id.fragment_cointainer, mf).commit();
             }
@@ -43,6 +44,4 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-    
-
 }

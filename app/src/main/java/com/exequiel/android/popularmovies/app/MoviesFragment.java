@@ -27,11 +27,12 @@ import java.util.List;
  */
 
 public class MoviesFragment extends Fragment implements Refresher{
+    private View rootView;
     private String TAG = MoviesFragment.class.getCanonicalName();
     private LinearLayout lLMovies;
     private GridView gVMovies;
     private ArrayAdapter<Movie> aAMovies;
-    private List<Movie> lMovies;
+    private ArrayList<Movie> lMovies;
     private LinearLayout progressBarContainer;
 
     @Override
@@ -41,43 +42,65 @@ public class MoviesFragment extends Fragment implements Refresher{
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("lMovies", lMovies);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView()");
         setHasOptionsMenu(true);
-        View rootView = inflater.inflate(R.layout.movies, container, false);
+        if (rootView == null) {
 
-        lLMovies =  (LinearLayout) rootView.findViewById(R.id.llMovies);
-        /**
-         * Progress bar based on http://stackoverflow.com/a/12559601
-         */
-        progressBarContainer = (LinearLayout) lLMovies.findViewById(R.id.progressBarContainer);
-        ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
-        gVMovies =  (GridView) lLMovies.findViewById(R.id.movies);
-        lMovies = ManagerMovies.getInstance().getMovies();
-        Log.d(TAG, lMovies.size()+"");
-        aAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
-        Log.d(TAG, aAMovies.getCount()+"");
-        gVMovies.setAdapter(aAMovies);
-        gVMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie movie = (Movie) parent.getItemAtPosition(position);
-                Bundle movieBundle = new Bundle();
-                movieBundle.putString("coverUrl", movie.getCoverUrl());
-                movieBundle.putString("originalTitle", movie.getOriginalTitle());
-                movieBundle.putString("synopsis", movie.getSynopsis());
-                movieBundle.putString("userRating", movie.getUserRating());
-                movieBundle.putString("releaseDate", movie.getReleaseDate());
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                MovieFragment mf = new MovieFragment();
-                mf.setArguments(movieBundle);
-                ft.replace(R.id.fragment_cointainer, mf);
-                ft.addToBackStack(null);
-                ft.commit();
+
+            rootView = inflater.inflate(R.layout.movies, container, false);
+
+            lLMovies = (LinearLayout) rootView.findViewById(R.id.llMovies);
+            /**
+             * Progress bar based on http://stackoverflow.com/a/12559601
+             */
+            progressBarContainer = (LinearLayout) lLMovies.findViewById(R.id.progressBarContainer);
+            gVMovies = (GridView) lLMovies.findViewById(R.id.movies);
+            if (savedInstanceState == null) {
+                ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
+                lMovies = ManagerMovies.getInstance().getMovies();
+            } else if (savedInstanceState.getParcelableArrayList("lMovies") != null) {
+                lMovies = savedInstanceState.getParcelableArrayList("lMovies");
             }
-        });
+            Log.d(TAG, lMovies.size() + "");
+            aAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
+            Log.d(TAG, aAMovies.getCount() + "");
+            gVMovies.setAdapter(aAMovies);
+            gVMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Movie movie = (Movie) parent.getItemAtPosition(position);
+                    Bundle movieBundle = new Bundle();
+                    movieBundle.putString("coverUrl", movie.getCoverUrl());
+                    movieBundle.putString("originalTitle", movie.getOriginalTitle());
+                    movieBundle.putString("synopsis", movie.getSynopsis());
+                    movieBundle.putString("userRating", movie.getUserRating());
+                    movieBundle.putString("releaseDate", movie.getReleaseDate());
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    MovieFragment mf = new MovieFragment();
+                    mf.setArguments(movieBundle);
+                    ft.replace(R.id.fragment_cointainer, mf);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+            });
+        }
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        if (rootView.getParent() != null){
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -86,6 +109,11 @@ public class MoviesFragment extends Fragment implements Refresher{
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Implementation found in http://stackoverflow.com/a/23533575
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
@@ -116,7 +144,8 @@ public class MoviesFragment extends Fragment implements Refresher{
 
     @Override
     public void start_progress_bar() {
-            progressBarContainer.setVisibility(View.VISIBLE);
+
+        progressBarContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
