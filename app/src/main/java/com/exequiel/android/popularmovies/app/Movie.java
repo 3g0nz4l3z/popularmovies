@@ -91,4 +91,17 @@ public class Movie implements Parcelable{
         return releaseDate;
     }
 
+    public void setReview(String review){
+        this.reviews.add(review);
+    }
+    public List<String> getReviews(){
+        return reviews;
+    }
+
+    public void setTrailers(String trailer){
+        this.trailers.add(trailer);
+    }
+    public List<String> getTrailers(){
+        return trailers;
+    }
 }

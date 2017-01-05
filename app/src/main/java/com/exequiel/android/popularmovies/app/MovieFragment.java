@@ -22,6 +22,7 @@ public class MovieFragment extends Fragment {
     private TextView textViewTitle;
     private TextView textViewRating;
     private TextView textViewSynopsis;
+    private TextView textViewDate;
     private ImageView imageViewCover;
     private String coverUrl;
     private String originalTitle;
@@ -31,11 +32,12 @@ public class MovieFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.movie, container, false);
-        textViewTitle = (TextView) rootView.findViewById(R.id.textViewTitle);
-        textViewRating = (TextView) rootView.findViewById(R.id.textViewRate);
-        textViewSynopsis = (TextView) rootView.findViewById(R.id.textViewSynopsis);
-        imageViewCover = (ImageView) rootView.findViewById(R.id.imageViewCover);
+        View rootView = inflater.inflate(R.layout.movie_trailer_reviews, container, false);
+        textViewTitle = (TextView) rootView.findViewById(R.id.textViewTitleTR);
+        textViewRating = (TextView) rootView.findViewById(R.id.textViewRateTR);
+        textViewSynopsis = (TextView) rootView.findViewById(R.id.textViewSynopsisTR);
+        imageViewCover = (ImageView) rootView.findViewById(R.id.imageViewCoverTR);
+        textViewDate = (TextView) rootView.findViewById(R.id.textViewDateTR);
 
         Bundle movieBundle = this.getArguments();
         Log.d(TAG, "Before bundle");
@@ -48,7 +50,8 @@ public class MovieFragment extends Fragment {
             releaseDate = movieBundle.getString("releaseDate", null);
             textViewRating.setText(userRating);
             textViewSynopsis.setText(synopsis);
-            textViewTitle.setText(originalTitle+ " (" +releaseDate+")");
+            textViewTitle.setText(originalTitle);
+            textViewDate.setText(releaseDate);
             Glide.with(MovieFragment.this).load(coverUrl).error(R.mipmap.ic_launcher).into(imageViewCover);
         }
         return rootView;
