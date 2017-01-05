@@ -5,4 +5,6 @@
     <color name="colorAccent">#ffd740</color>
     <color name="colorPale">#fafafa</color>
     <color name="colorText">#000000</color>
+    <color name="colorButton">#68EFAD</color>
+    <color name="colorBorderPale">#bdbdbd</color>
 </resources>
