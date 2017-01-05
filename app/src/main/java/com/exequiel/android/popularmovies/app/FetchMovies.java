@@ -33,10 +33,20 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         this.refresher = refresher;
     }
 
+
+
     @Override
     protected void onPreExecute() {
         ManagerMovies.getInstance().emptyMovies();
         refresher.start_progress_bar();
+    }
+
+    private String getURLMovieTrailer(String movieID){
+        return " https://api.themoviedb.org/3/movie/"+movieID+"/videos?api_key="+BuildConfig.THEMOVIEDBAPIKEY;
+    }
+
+    private String getURLMoveReview(String movieID){
+        return "https://api.themoviedb.org/3/movie/"+movieID+"/reviews?api_key="+BuildConfig.THEMOVIEDBAPIKEY;
     }
 
     @Override
@@ -91,7 +101,6 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
                 String originalTitle = jsMovie.getString("original_title");
                 String coverUrl = jsMovie.getString("poster_path");
                 Movie movie = new Movie(movie_id, coverUrl, originalTitle, synopsis, userRating, releaseDate);
-                Log.d(TAG, movie.getOriginalTitle()+", "+movie.getCoverUrl());
                 ManagerMovies.getInstance().addMovie(movie);
             }
         } catch (JSONException e) {

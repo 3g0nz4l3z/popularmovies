@@ -58,4 +58,5 @@ public class ManagerMovies {
     public ArrayList<Movie> getMovies(){
         return movies;
     }
+
 }
