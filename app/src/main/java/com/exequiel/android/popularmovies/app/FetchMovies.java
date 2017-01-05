@@ -99,6 +99,7 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
                 for (int i = 0; i < jsonATrailers.length(); i++) {
                     JSONObject jsTrailer = jsonATrailers.getJSONObject(i);
                     String trailerKey = jsTrailer.getString("key");
+                    Log.d(TAG, trailerKey);
                     movie.setTrailers(trailerKey);
                 }
             } catch (JSONException e) {
@@ -140,6 +141,7 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
                 for (int i = 0; i < jsonAReviews.length(); i++) {
                     JSONObject jsReview = jsonAReviews.getJSONObject(i);
                     String reviewText = jsReview.getString("content");
+                    Log.d(TAG, reviewText);
                     movie.setReview(reviewText);
                 }
             } catch (JSONException e) {
