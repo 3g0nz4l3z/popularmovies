@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:text="This the text of a movie"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textViewTitleTR"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <ScrollView
+        android:background="@color/colorPale"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@mipmap/ic_launcher"
+                        android:id="@+id/imageViewCoverTR" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:textColor="@color/colorText"
+                            android:text="2015/11/16"
+                            android:textSize="20sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/textViewDateTR" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:textColor="@color/colorText"
+                            android:text="9.1"
+                            android:textSize="20sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/textViewRateTR" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="0.5">
+
+                        <Button
+                            android:text="Add to favorites"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/buttonAddToFavorites" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:textColor="@color/colorText"
+                    android:text="A very long text for test propuse, about the new layout that i am designing for the stage 2 of the aplication"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textViewSynopsisTR"
+                    style="@android:style/TextAppearance.Small"
+                    android:textSize="20sp" />
+                <View
+                    android:layout_margin="2dp"
+                    android:background="@color/colorText"
+                    android:layout_height="2dp"
+                    android:layout_width="match_parent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="Trailers:"
+                    android:textColor="@color/colorText"
+                    android:layout_width="match_parent"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewTrailersTR"
+                    android:layout_weight="2"/>
+
+                <View
+                    android:layout_margin="5dp"
+                    android:background="@color/colorText"
+                    android:layout_height="2dp"
+                    android:layout_width="match_parent"/>
+
+                <ListView
+                    android:id="@+id/listViewTrailersTR"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="Reviews:"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewReviewsTR"
+                    android:layout_weight="2" />
+                <View
+                    android:layout_margin="5dp"
+                    android:background="@color/colorText"
+                    android:layout_height="2dp"
+                    android:layout_width="match_parent"/>
+
+                <ListView
+                    android:id="@+id/listViewReviewsTR"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -3,19 +3,26 @@ package com.exequiel.android.popularmovies.app;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by exequiel on 12/12/2016.
  */
 
 public class Movie implements Parcelable{
+    private String movie_id;
     private String coverUrl;
     private String originalTitle;
     private String synopsis;
     private String userRating;
     private String releaseDate;
+    private List<String> reviews = new ArrayList<String>();
+    private List<String> trailers = new ArrayList<String>();
 
-    public Movie(String coverUrl, String originalTitle, String synopsis, String userRating, String releaseDate)
+    public Movie(String movie_id, String coverUrl, String originalTitle, String synopsis, String userRating, String releaseDate)
     {
+        this.movie_id = movie_id;
         this.coverUrl = coverUrl;
         this.originalTitle = originalTitle;
         this.synopsis = synopsis;
@@ -24,20 +31,27 @@ public class Movie implements Parcelable{
     }
 
     protected Movie(Parcel in) {
+        movie_id = in.readString();
         coverUrl = in.readString();
         originalTitle = in.readString();
         synopsis = in.readString();
         userRating = in.readString();
         releaseDate = in.readString();
+        in.readList(reviews, Movie.class.getClassLoader());
+        in.readList(trailers, Movie.class.getClassLoader());
+
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(movie_id);
         dest.writeString(coverUrl);
         dest.writeString(originalTitle);
         dest.writeString(synopsis);
         dest.writeString(userRating);
         dest.writeString(releaseDate);
+        dest.writeList(reviews);
+        dest.writeList(trailers);
     }
 
     @Override
