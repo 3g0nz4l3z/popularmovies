@@ -75,6 +75,87 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
     return true;
     }
 
+    /**
+     * It is not what i wanted but it works
+     * @param movie
+     */
+    private void getTrailers(Movie movie){
+        Log.d(TAG, "doInBackground()");
+        /**
+         * Implementation found https://developer.android.com/reference/java/net/HttpURLConnection.html
+         */
+        URL url = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            url = new URL(getURLMovieTrailer(movie.getMovie_id()));
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+            String urlString = new Scanner(in).useDelimiter("\\A").next();
+            JSONObject jsonTrailer = null;
+            try {
+                jsonTrailer = new JSONObject(urlString);
+                JSONArray jsonATrailers = jsonTrailer.getJSONArray("results");
+                for (int i = 0; i < jsonATrailers.length(); i++) {
+                    JSONObject jsTrailer = jsonATrailers.getJSONObject(i);
+                    String trailerKey = jsTrailer.getString("key");
+                    movie.setTrailers(trailerKey);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            Log.d(TAG, urlConnection.getResponseMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            urlConnection.disconnect();
+        }
+    }
+
+    /**
+     * It is not what i wanted but it works
+     * @param movie
+     */
+    private void getReviews(Movie movie){
+        Log.d(TAG, "doInBackground()");
+        /**
+         * Implementation found https://developer.android.com/reference/java/net/HttpURLConnection.html
+         */
+        URL url = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            url = new URL(getURLMoveReview(movie.getMovie_id()));
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+            String urlString = new Scanner(in).useDelimiter("\\A").next();
+            JSONObject jsonReview = null;
+            try {
+                jsonReview = new JSONObject(urlString);
+                JSONArray jsonAReviews = jsonReview.getJSONArray("results");
+                for (int i = 0; i < jsonAReviews.length(); i++) {
+                    JSONObject jsReview = jsonAReviews.getJSONObject(i);
+                    String reviewText = jsReview.getString("content");
+                    movie.setReview(reviewText);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            Log.d(TAG, urlConnection.getResponseMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            urlConnection.disconnect();
+        }
+    }
     @Override
     protected void onPostExecute(Boolean aBoolean) {
         try {
@@ -101,6 +182,8 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
                 String originalTitle = jsMovie.getString("original_title");
                 String coverUrl = jsMovie.getString("poster_path");
                 Movie movie = new Movie(movie_id, coverUrl, originalTitle, synopsis, userRating, releaseDate);
+                getTrailers(movie);
+                getReviews(movie);
                 ManagerMovies.getInstance().addMovie(movie);
             }
         } catch (JSONException e) {
