@@ -17,6 +17,7 @@ public class Movie implements Parcelable{
     private String synopsis;
     private String userRating;
     private String releaseDate;
+    private List<String> authors = new ArrayList<String>();
     private List<String> reviews = new ArrayList<String>();
     private List<String> trailers = new ArrayList<String>();
 
@@ -37,6 +38,7 @@ public class Movie implements Parcelable{
         synopsis = in.readString();
         userRating = in.readString();
         releaseDate = in.readString();
+        in.readList(authors, Movie.class.getClassLoader());
         in.readList(reviews, Movie.class.getClassLoader());
         in.readList(trailers, Movie.class.getClassLoader());
 
@@ -50,6 +52,7 @@ public class Movie implements Parcelable{
         dest.writeString(synopsis);
         dest.writeString(userRating);
         dest.writeString(releaseDate);
+        dest.writeList(authors);
         dest.writeList(reviews);
         dest.writeList(trailers);
     }
@@ -75,10 +78,6 @@ public class Movie implements Parcelable{
         return "http://image.tmdb.org/t/p/w185"+coverUrl;
     }
 
-    public String getMovie_id() {
-        return this.movie_id;
-    }
-
     public String getOriginalTitle() {
         return originalTitle;
     }
@@ -95,17 +94,31 @@ public class Movie implements Parcelable{
         return releaseDate;
     }
 
-    public void setReview(String review){
-        this.reviews.add(review);
-    }
-    public List<String> getReviews(){
-        return reviews;
+    public String getMovie_id() {
+        return movie_id;
     }
 
-    public void setTrailers(String trailer){
+    public List<String> getAuthors(){
+        return this.authors;
+    }
+
+    public void setAuthor(String author){
+        this.authors.add(author);
+    }
+
+    public void setTrailers(String trailer) {
         this.trailers.add(trailer);
     }
+
     public List<String> getTrailers(){
-        return trailers;
+        return this.trailers;
+    }
+
+    public void setReview(String review) {
+        this.reviews.add(review);
+    }
+
+    public List<String> getReviews(){
+        return this.reviews;
     }
 }

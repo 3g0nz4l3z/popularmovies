@@ -140,6 +140,7 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
                 JSONArray jsonAReviews = jsonReview.getJSONArray("results");
                 for (int i = 0; i < jsonAReviews.length(); i++) {
                     JSONObject jsReview = jsonAReviews.getJSONObject(i);
+                    String authorText = jsReview.getString("author");
                     String reviewText = jsReview.getString("content");
                     Log.d(TAG, reviewText);
                     movie.setReview(reviewText);
