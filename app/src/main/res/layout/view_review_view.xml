@@ -13,11 +13,27 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <TextView
-                android:text="Review 1"
+                android:text="JackieStock:"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:textColor="@color/colorText"
+                android:textSize="20sp"
+                android:id="@+id/textViewAuthor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Awasome movie once in a life time"
                 android:layout_margin="5dp"
                 android:textColor="@color/colorText"
                 android:textSize="20sp"
