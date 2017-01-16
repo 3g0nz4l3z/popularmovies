@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class MovieFragment extends Fragment implements Refresher{
     private AdapterReviews adapterReviews;
     private AdapterTrailers adapterTrailers;
     private ListView listViewTrailers;
-    private ListView lsitViewReviews;
+    private ListView listViewReviews;
     private String coverUrl;
     private String originalTitle;
     private String synopsis;
@@ -43,8 +44,8 @@ public class MovieFragment extends Fragment implements Refresher{
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //outState.putParcelableArrayList("Trailers", trailers);
-        //outState.putParcelableArrayList("Reviews", reviews);
+        outState.putStringArrayList("trailers", trailers);
+        outState.putStringArrayList("reviews", reviews);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class MovieFragment extends Fragment implements Refresher{
         imageViewCover = (ImageView) rootView.findViewById(R.id.imageViewCoverTR);
         textViewDate = (TextView) rootView.findViewById(R.id.textViewDateTR);
         listViewTrailers = (ListView) rootView.findViewById(R.id.listViewTrailersTR);
-        lsitViewReviews = (ListView) rootView.findViewById(R.id.listViewTrailersTR);
+        listViewReviews = (ListView) rootView.findViewById(R.id.listViewReviewsTR);
 
         Bundle movieBundle = this.getArguments();
         Log.d(TAG, "Before bundle");
@@ -67,8 +68,6 @@ public class MovieFragment extends Fragment implements Refresher{
             synopsis = movieBundle.getString("synopsis", null);
             userRating = movieBundle.getString("userRating", null);
             releaseDate = movieBundle.getString("releaseDate", null);
-            reviews = movieBundle.getStringArrayList("reviews");
-            trailers = movieBundle.getStringArrayList("trailers");
             movieId = movieBundle.getString("movie_id");
 
             textViewRating.setText(userRating);
@@ -77,19 +76,24 @@ public class MovieFragment extends Fragment implements Refresher{
             textViewDate.setText(releaseDate);
             Glide.with(MovieFragment.this).load(coverUrl).error(R.mipmap.ic_launcher).into(imageViewCover);
             if (savedInstanceState == null) {
-                ManagerMovies.getInstance().fetch_by_top_rated(MovieFragment.this);
                 reviews = ManagerMovies.getInstance().getReviews(movieId);
+                for (String string : reviews)
+                {
+                    Log.d(TAG, string);
+                }
                 trailers = ManagerMovies.getInstance().getTrailers(movieId);
-            } else if (savedInstanceState.getParcelableArrayList("trailers") != null && savedInstanceState.getParcelableArrayList("reviews") != null  ) {
-                // reviews = savedInstanceState.getParcelableArray("trailers");
-                // trailers = savedInstanceState.getParcelableArray("reviews");
+            } else if (savedInstanceState.getStringArrayList("trailers") != null && savedInstanceState.getStringArrayList("reviews") != null  ) {
+                reviews = savedInstanceState.getStringArrayList("reviews");
+                trailers = savedInstanceState.getStringArrayList("trailers");
             }
 
 
             adapterReviews = new AdapterReviews(MovieFragment.this, reviews);
             adapterTrailers = new AdapterTrailers(MovieFragment.this, trailers);
-            //lsitViewReviews.setAdapter(adapterReviews);
-            //listViewTrailers.setAdapter(adapterTrailers);
+            listViewReviews.setAdapter(adapterReviews);
+            new Utility().setListViewHeightBasedOnChildren(listViewReviews);
+            listViewTrailers.setAdapter(adapterTrailers);
+            new Utility().setListViewHeightBasedOnChildren(listViewTrailers);
 
         }
         return rootView;
@@ -103,8 +107,8 @@ public class MovieFragment extends Fragment implements Refresher{
             public void run() {
                 Log.d(TAG, "refresh()");
                 adapterReviews.notifyDataSetChanged();
-                lsitViewReviews.invalidateViews();
-                lsitViewReviews.setAdapter(adapterReviews);
+                listViewReviews.invalidateViews();
+                listViewReviews.setAdapter(adapterReviews);
                 adapterTrailers.notifyDataSetChanged();
                 listViewTrailers.invalidateViews();
                 listViewTrailers.setAdapter(adapterTrailers);
@@ -121,4 +125,6 @@ public class MovieFragment extends Fragment implements Refresher{
     public void end_progress_bar() {
 
     }
+
+
 }

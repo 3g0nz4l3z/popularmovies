@@ -83,8 +83,8 @@ public class MoviesFragment extends Fragment implements Refresher{
                     movieBundle.putString("synopsis", movie.getSynopsis());
                     movieBundle.putString("userRating", movie.getUserRating());
                     movieBundle.putString("releaseDate", movie.getReleaseDate());
-                    movieBundle.putStringArrayList("reviews", movie.getReviews());
-                    movieBundle.putStringArrayList("trailers", movie.getTrailers());
+                    // movieBundle.putStringArrayList("reviews", movie.getReviews());
+                    // movieBundle.putStringArrayList("trailers", movie.getTrailers());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     MovieFragment mf = new MovieFragment();

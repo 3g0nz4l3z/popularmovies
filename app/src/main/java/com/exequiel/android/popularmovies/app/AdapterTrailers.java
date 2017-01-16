@@ -54,7 +54,7 @@ public class AdapterTrailers extends ArrayAdapter<String> {
             }
         });
 
-        textViewTrailer.setText("Trailer "+position);
+        textViewTrailer.setText("Trailer "+(position+1));
         return rowView;
     }
 }

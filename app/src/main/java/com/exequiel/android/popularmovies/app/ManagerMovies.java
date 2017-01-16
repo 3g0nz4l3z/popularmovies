@@ -78,7 +78,7 @@ public class ManagerMovies {
         {
             if (movie.getMovie_id().equals(movie_id))
             {
-                return movie.getTrailers();
+                return movie.getReviews();
             }
 
         }

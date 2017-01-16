@@ -28,7 +28,7 @@ public class AdapterReviews extends ArrayAdapter<String> {
     private TextView textViewReviews;
 
     public AdapterReviews(Fragment fragment, ArrayList<String> reviews){
-        super(fragment.getContext(), R.layout.view_review_view);
+        super(fragment.getContext(), R.layout.view_review_view, reviews);
         Log.d(TAG, "AdapterReviews()");
         this.fragment = fragment;
         this.reviews = reviews;
@@ -41,6 +41,7 @@ public class AdapterReviews extends ArrayAdapter<String> {
 
         View rowView = inflater.inflate(R.layout.view_review_view, parent, false);
         textViewReviews = (TextView) rowView.findViewById(R.id.textViewReview);
+        Log.d(TAG, reviews.get(position));
         textViewReviews.setText(reviews.get(position));
         return rowView;
     }
