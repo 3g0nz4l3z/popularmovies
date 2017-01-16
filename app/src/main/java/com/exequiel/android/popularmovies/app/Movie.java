@@ -17,9 +17,9 @@ public class Movie implements Parcelable{
     private String synopsis;
     private String userRating;
     private String releaseDate;
-    private List<String> authors = new ArrayList<String>();
-    private List<String> reviews = new ArrayList<String>();
-    private List<String> trailers = new ArrayList<String>();
+    private ArrayList<String> authors = new ArrayList<String>();
+    private ArrayList<String> reviews = new ArrayList<String>();
+    private ArrayList<String> trailers = new ArrayList<String>();
 
     public Movie(String movie_id, String coverUrl, String originalTitle, String synopsis, String userRating, String releaseDate)
     {
@@ -98,7 +98,7 @@ public class Movie implements Parcelable{
         return movie_id;
     }
 
-    public List<String> getAuthors(){
+    public ArrayList<String> getAuthors(){
         return this.authors;
     }
 
@@ -110,7 +110,7 @@ public class Movie implements Parcelable{
         this.trailers.add(trailer);
     }
 
-    public List<String> getTrailers(){
+    public ArrayList<String> getTrailers(){
         return this.trailers;
     }
 
@@ -118,7 +118,7 @@ public class Movie implements Parcelable{
         this.reviews.add(review);
     }
 
-    public List<String> getReviews(){
+    public ArrayList<String> getReviews(){
         return this.reviews;
     }
 }

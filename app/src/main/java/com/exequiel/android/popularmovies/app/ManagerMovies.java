@@ -59,4 +59,29 @@ public class ManagerMovies {
         return movies;
     }
 
+
+    public ArrayList<String> getTrailers(String movie_id){
+        for (Movie movie: movies)
+        {
+            if (movie.getMovie_id().equals(movie_id))
+            {
+                return movie.getTrailers();
+            }
+
+        }
+        return null;
+    }
+
+
+    public ArrayList<String> getReviews(String movie_id){
+        for (Movie movie: movies)
+        {
+            if (movie.getMovie_id().equals(movie_id))
+            {
+                return movie.getTrailers();
+            }
+
+        }
+        return null;
+    }
 }

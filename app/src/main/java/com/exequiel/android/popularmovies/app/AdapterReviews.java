@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,16 +24,13 @@ import java.util.List;
 public class AdapterReviews extends ArrayAdapter<String> {
     private String TAG = AdapterReviews.this.getClass().getCanonicalName();
     private Fragment fragment;
-    private List<String> authors;
-    private List<String> reviews;
-    private TextView textViewAuthors;
+    private ArrayList<String> reviews;
     private TextView textViewReviews;
 
-    public AdapterReviews(Fragment fragment, List<String> authors, List<String> reviews){
+    public AdapterReviews(Fragment fragment, ArrayList<String> reviews){
         super(fragment.getContext(), R.layout.view_review_view);
         Log.d(TAG, "AdapterReviews()");
         this.fragment = fragment;
-        this.authors = authors;
         this.reviews = reviews;
     }
 
@@ -42,9 +40,7 @@ public class AdapterReviews extends ArrayAdapter<String> {
         LayoutInflater inflater = (LayoutInflater) fragment.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(R.layout.view_review_view, parent, false);
-        textViewAuthors = (TextView) rowView.findViewById(R.id.textViewAuthor);
         textViewReviews = (TextView) rowView.findViewById(R.id.textViewReview);
-        textViewAuthors.setText(authors.get(position)+": ");
         textViewReviews.setText(reviews.get(position));
         return rowView;
     }

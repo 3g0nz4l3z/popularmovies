@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +26,11 @@ import java.util.List;
 public class AdapterTrailers extends ArrayAdapter<String> {
     private String TAG = AdapterTrailers.this.getClass().getCanonicalName();
     private Fragment fragment;
-    private List<String> trailersKey;
+    private ArrayList<String> trailersKey;
     private TextView textViewTrailer;
     private ImageButton imageButtonTrailer;
 
-    public AdapterTrailers(Fragment fragment, List<String> trailersKey){
+    public AdapterTrailers(Fragment fragment, ArrayList<String> trailersKey){
         super(fragment.getContext(), R.layout.watch_movie_view, trailersKey);
         Log.d(TAG, "AdapterTrailers()");
         this.fragment = fragment;

@@ -77,11 +77,14 @@ public class MoviesFragment extends Fragment implements Refresher{
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Movie movie = (Movie) parent.getItemAtPosition(position);
                     Bundle movieBundle = new Bundle();
+                    movieBundle.putString("movie_id", movie.getMovie_id());
                     movieBundle.putString("coverUrl", movie.getCoverUrl());
                     movieBundle.putString("originalTitle", movie.getOriginalTitle());
                     movieBundle.putString("synopsis", movie.getSynopsis());
                     movieBundle.putString("userRating", movie.getUserRating());
                     movieBundle.putString("releaseDate", movie.getReleaseDate());
+                    movieBundle.putStringArrayList("reviews", movie.getReviews());
+                    movieBundle.putStringArrayList("trailers", movie.getTrailers());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     MovieFragment mf = new MovieFragment();
