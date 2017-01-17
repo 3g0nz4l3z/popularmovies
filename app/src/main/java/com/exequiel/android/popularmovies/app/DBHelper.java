@@ -14,9 +14,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String name = "DBFavoritesMovies";
     private static final int version = 1;
 
-    private static final String DatabaseCreateMovieProfile = "CREATE TABLE MovieProfile (id INTEGER PRIMARY KEY AUTOINCREMENT, id_movie TEXT UNIQUE, sypnosis TEXT, date TEXT, rate TEXT, title TEXT)";
-    private static final String DatabaseCreateReview = "CREATE TABLE Review (id INTEGER PRIMARY KEY AUTOINCREMENT, id_movie TEXT UNIQUE, review TEXT UNIQUE, author TEXT UNIQUE)";
-    private static final String DatabaseCreateTrailer = "CREATE TABLE Trailer (id INTEGER PRIMARY KEY AUTOINCREMENT, id_movie TEXT UNIQUE, trailerKey TEXT UNIQUE)";
+    private static final String DatabaseCreateMovieProfile = "CREATE TABLE MovieProfile (id INTEGER PRIMARY KEY AUTOINCREMENT, idMovie TEXT UNIQUE, coverUrl TEXT UNIQUE, synopsis TEXT, date TEXT, rate TEXT, title TEXT)";
+    private static final String DatabaseCreateReview = "CREATE TABLE Review (id INTEGER PRIMARY KEY AUTOINCREMENT, idMovie TEXT UNIQUE, review TEXT UNIQUE, author TEXT UNIQUE)";
+    private static final String DatabaseCreateTrailer = "CREATE TABLE Trailer (id INTEGER PRIMARY KEY AUTOINCREMENT, idMovie TEXT UNIQUE, trailerKey TEXT UNIQUE)";
     private static final String DatabaseDropMovieProfile = "DROP TABLE IF EXISTS MovieProfile";
     private static final String DatabaseDropReview = "DROP TABLE IF EXISTS Review";
     private static final String DatabaseDropTrailer = "DROP TABLE IF EXISTS Trailer";

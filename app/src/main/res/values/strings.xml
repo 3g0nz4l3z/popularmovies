@@ -2,4 +2,5 @@
     <string name="app_name">PopularMovies</string>
     <string name="sort_by_popularity">Sort by most populars</string>
     <string name="sort_by_rated">Sort by most rated</string>
+    <string name="sort_by_favorites">Sort by my favorites</string>
 </resources>

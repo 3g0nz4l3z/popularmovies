@@ -128,6 +128,10 @@ public class MoviesFragment extends Fragment implements Refresher{
                 Log.d(TAG, "sort by rated");
                 ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
                 break;
+            case R.id.sort_by_favorites:
+                Log.d(TAG, "sort by favorites");
+                ManagerMovies.getInstance().fetch_favorites(MoviesFragment.this);
+                break;
         }
         return true;
     }

@@ -84,4 +84,8 @@ public class ManagerMovies {
         }
         return null;
     }
+
+    public void fetch_favorites(MoviesFragment moviesFragment) {
+
+    }
 }
