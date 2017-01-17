@@ -175,6 +175,7 @@ public class FetchMovies extends AsyncTask<String, Void, Boolean> {
         JSONObject jsonMovies = null;
         try {
             jsonMovies = new JSONObject(urlString);
+            jsonMovies = new JSONObject(urlString);
             JSONArray jsonAMovies = jsonMovies.getJSONArray("results");
             for (int i = 0; i < jsonAMovies.length(); i++) {
                 JSONObject jsMovie = jsonAMovies.getJSONObject(i);

@@ -121,4 +121,12 @@ public class Movie implements Parcelable{
     public ArrayList<String> getReviews(){
         return this.reviews;
     }
+
+    public void setReviews(ArrayList<String> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void setTrailers(ArrayList<String> trailers) {
+        this.trailers = trailers;
+    }
 }

@@ -27,7 +27,7 @@ public class HelperTrailer {
      * Inserts a row in Review table with the data necesary.
      * @return
      */
-    public long insertMovieTrailer(String movieId,  String trailer){
+    public long insertTrailer(String movieId,  String trailer){
         ContentValues values = new ContentValues();
         values.put("idMovie",movieId);
         values.put("trailer",trailer);
@@ -39,7 +39,7 @@ public class HelperTrailer {
      * It is a very specific method to get the reviews with a specific id
      * @return
      */
-    public ArrayList<String> getMovieProfile(String idMovie)
+    public ArrayList<String> getTrailers(String idMovie)
     {
         ArrayList<String> trailerAux = new ArrayList<String>();
         Cursor cursor = database.rawQuery("SELECT * FROM "+tableName+"where idMovie="+idMovie, null);

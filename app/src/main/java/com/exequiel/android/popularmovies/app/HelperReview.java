@@ -27,7 +27,7 @@ public class HelperReview {
      * Inserts a row in Review table with the data necesary.
      * @return
      */
-    public long insertMovieProfile(String movieId, String author, String review){
+    public long insertReview(String movieId, String author, String review){
         ContentValues values = new ContentValues();
         values.put("idMovie",movieId);
         values.put("author",author);
@@ -40,7 +40,7 @@ public class HelperReview {
      * It is a very specific method to get the reviews with a specific id
      * @return
      */
-    public ArrayList<String> getMovieProfile(String idMovie)
+    public ArrayList<String> getReviews(String idMovie)
     {
         ArrayList<String> reviewAux = new ArrayList<String>();
         Cursor cursor = database.rawQuery("SELECT * FROM "+tableName+"where idMovie="+idMovie, null);

@@ -86,6 +86,10 @@ public class ManagerMovies {
     }
 
     public void fetch_favorites(MoviesFragment moviesFragment) {
+            new FetchFavorites(moviesFragment).execute();
+    }
 
+    public void setMovies(ArrayList<Movie> movies){
+        this.movies = movies;
     }
 }
