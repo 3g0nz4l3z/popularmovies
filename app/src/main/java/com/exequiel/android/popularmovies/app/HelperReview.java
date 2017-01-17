@@ -27,10 +27,10 @@ public class HelperReview {
      * Inserts a row in Review table with the data necesary.
      * @return
      */
-    public long insertReview(String movieId, String author, String review){
+    public long insertReview(String movieId, String review){
         ContentValues values = new ContentValues();
         values.put("idMovie",movieId);
-        values.put("author",author);
+        values.put("author",""); // perhaps in the future i will use it
         values.put("review",review);
 
         return database.insert(tableName, null, values);
@@ -43,10 +43,10 @@ public class HelperReview {
     public ArrayList<String> getReviews(String idMovie)
     {
         ArrayList<String> reviewAux = new ArrayList<String>();
-        Cursor cursor = database.rawQuery("SELECT * FROM "+tableName+"where idMovie="+idMovie, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM "+tableName+" where idMovie="+idMovie, null);
         try{
             while(cursor.moveToNext()){
-                String author = cursor.getString(cursor.getColumnIndex("author")); // I am no using author currently but you never know
+                //String author = cursor.getString(cursor.getColumnIndex("author")); // I am no using author currently but you never know
                 String review = cursor.getString(cursor.getColumnIndex("review"));
                 reviewAux.add(review);
             }

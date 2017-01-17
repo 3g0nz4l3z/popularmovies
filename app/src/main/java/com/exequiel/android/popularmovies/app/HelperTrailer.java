@@ -30,7 +30,7 @@ public class HelperTrailer {
     public long insertTrailer(String movieId,  String trailer){
         ContentValues values = new ContentValues();
         values.put("idMovie",movieId);
-        values.put("trailer",trailer);
+        values.put("trailerKey",trailer);
 
         return database.insert(tableName, null, values);
     }
@@ -42,10 +42,10 @@ public class HelperTrailer {
     public ArrayList<String> getTrailers(String idMovie)
     {
         ArrayList<String> trailerAux = new ArrayList<String>();
-        Cursor cursor = database.rawQuery("SELECT * FROM "+tableName+"where idMovie="+idMovie, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM "+tableName+" where idMovie="+idMovie, null);
         try{
             while(cursor.moveToNext()){
-               String trailer = cursor.getString(cursor.getColumnIndex("trailer"));
+               String trailer = cursor.getString(cursor.getColumnIndex("trailerKey"));
                 trailerAux.add(trailer);
             }
         } finally {

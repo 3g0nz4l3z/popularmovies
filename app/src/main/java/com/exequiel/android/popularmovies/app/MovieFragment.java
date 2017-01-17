@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,6 +30,7 @@ public class MovieFragment extends Fragment implements Refresher{
     private TextView textViewSynopsis;
     private TextView textViewDate;
     private ImageView imageViewCover;
+    private Button buttonAddFavorite;
     private AdapterReviews adapterReviews;
     private AdapterTrailers adapterTrailers;
     private ListView listViewTrailers;
@@ -58,6 +60,9 @@ public class MovieFragment extends Fragment implements Refresher{
         textViewDate = (TextView) rootView.findViewById(R.id.textViewDateTR);
         listViewTrailers = (ListView) rootView.findViewById(R.id.listViewTrailersTR);
         listViewReviews = (ListView) rootView.findViewById(R.id.listViewReviewsTR);
+        buttonAddFavorite = (Button) rootView.findViewById(R.id.buttonAddToFavorites);
+
+
 
         Bundle movieBundle = this.getArguments();
         Log.d(TAG, "Before bundle");
@@ -95,6 +100,25 @@ public class MovieFragment extends Fragment implements Refresher{
             listViewTrailers.setAdapter(adapterTrailers);
             new Utility().setListViewHeightBasedOnChildren(listViewTrailers);
 
+            buttonAddFavorite.setOnClickListener(new View.OnClickListener()
+            {
+
+                @Override
+                public void onClick(View v) {
+                    HelperMovieProfile hmp = new HelperMovieProfile(MovieFragment.this.getContext());
+                    HelperReview hr = new HelperReview(MovieFragment.this.getContext());
+                    HelperTrailer ht = new HelperTrailer(MovieFragment.this.getContext());
+
+                    hmp.insertMovieProfile(movieId, coverUrl, originalTitle, synopsis, userRating, releaseDate);
+                    for (String review: ManagerMovies.getInstance().getReviews(movieId)){
+                        hr.insertReview(movieId, review);
+                    }
+
+                    for (String trailer: ManagerMovies.getInstance().getTrailers(movieId)){
+                        ht.insertTrailer(movieId, trailer);
+                    }
+                }
+            });
         }
         return rootView;
     }
