@@ -43,6 +43,8 @@ public class MovieFragment extends Fragment implements Refresher{
     private String movieId;
     private ArrayList<String> reviews;
     private ArrayList<String> trailers;
+    private String coverUrlId; //sorry my bad
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -69,6 +71,7 @@ public class MovieFragment extends Fragment implements Refresher{
         if (movieBundle != null) {
             Log.d(TAG, "Bundle is no null");
             coverUrl = movieBundle.getString("coverUrl", null);
+            coverUrlId = movieBundle.getString("coverUrlId", null);
             originalTitle = movieBundle.getString("originalTitle", null);
             synopsis = movieBundle.getString("synopsis", null);
             userRating = movieBundle.getString("userRating", null);
@@ -105,11 +108,14 @@ public class MovieFragment extends Fragment implements Refresher{
 
                 @Override
                 public void onClick(View v) {
+                    Log.d(TAG, "Add favorites");
                     HelperMovieProfile hmp = new HelperMovieProfile(MovieFragment.this.getContext());
                     HelperReview hr = new HelperReview(MovieFragment.this.getContext());
                     HelperTrailer ht = new HelperTrailer(MovieFragment.this.getContext());
 
-                    hmp.insertMovieProfile(movieId, coverUrl, originalTitle, synopsis, userRating, releaseDate);
+
+
+                    hmp.insertMovieProfile(movieId, coverUrlId, originalTitle, synopsis, userRating, releaseDate);
                     for (String review: ManagerMovies.getInstance().getReviews(movieId)){
                         hr.insertReview(movieId, review);
                     }

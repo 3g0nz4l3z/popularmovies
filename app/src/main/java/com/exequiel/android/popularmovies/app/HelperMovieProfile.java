@@ -36,7 +36,7 @@ public class HelperMovieProfile {
         values.put("date",releaseDate);
         values.put("rate",userRating);
         values.put("title",originalTitle);
-        values.put("coverUrl",coverUrl);
+        values.put("coverUrl",""+coverUrl);
 
         return database.insert(tableName, null, values);
     }

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class FetchFavorites extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected void onPreExecute() {
+        Log.d(TAG, "onPreExecute");
         ManagerMovies.getInstance().emptyMovies();
         refresher.start_progress_bar();
     }
@@ -48,13 +50,17 @@ public class FetchFavorites extends AsyncTask<String, Void, Boolean> {
         HelperMovieProfile hmp = new HelperMovieProfile(context);
         HelperReview hr = new HelperReview(context);
         HelperTrailer ht = new HelperTrailer(context);
-        ManagerMovies.getInstance().setMovies(hmp.getMovieProfile());
-        for (Movie movie: ManagerMovies.getInstance().getMovies())
+        ArrayList<Movie> movieAux = hmp.getMovieProfile();
+        for (Movie movie: movieAux)
         {
+            Log.d(TAG, movie.getMovie_id());
             ArrayList<String> reviews = hr.getReviews(movie.getMovie_id());
             movie.setReviews(reviews);
             ArrayList<String> trailers = ht.getTrailers(movie.getMovie_id());
             movie.setTrailers(trailers);
+        }
+        for (Movie movie: movieAux){
+            ManagerMovies.getInstance().addMovie(movie);
         }
         return true;
     }
@@ -79,6 +85,7 @@ public class FetchFavorites extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean aBoolean) {
         try {
+            Log.d(TAG, "onPostExecute");
             refresher.refresh();
             refresher.end_progress_bar();
         }catch(Exception e){

@@ -44,6 +44,7 @@ public class MoviesFragment extends Fragment implements Refresher{
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState");
         outState.putParcelableArrayList("lMovies", lMovies);
     }
 
@@ -63,12 +64,13 @@ public class MoviesFragment extends Fragment implements Refresher{
             progressBarContainer = (LinearLayout) lLMovies.findViewById(R.id.progressBarContainer);
             gVMovies = (GridView) lLMovies.findViewById(R.id.movies);
             if (savedInstanceState == null) {
+                Log.d(TAG, "savedInstanceState is null");
                 ManagerMovies.getInstance().fetch_by_top_rated(MoviesFragment.this);
                 lMovies = ManagerMovies.getInstance().getMovies();
             } else if (savedInstanceState.getParcelableArrayList("lMovies") != null) {
                 lMovies = savedInstanceState.getParcelableArrayList("lMovies");
+                Log.d(TAG, "savedInstanceState not null");
             }
-            Log.d(TAG, lMovies.size() + "");
             aAMovies = new AdapterMovies(MoviesFragment.this, lMovies);
             Log.d(TAG, aAMovies.getCount() + "");
             gVMovies.setAdapter(aAMovies);
@@ -79,6 +81,7 @@ public class MoviesFragment extends Fragment implements Refresher{
                     Bundle movieBundle = new Bundle();
                     movieBundle.putString("movie_id", movie.getMovie_id());
                     movieBundle.putString("coverUrl", movie.getCoverUrl());
+                    movieBundle.putString("coverUrlId", movie.getCoverUrlId());
                     movieBundle.putString("originalTitle", movie.getOriginalTitle());
                     movieBundle.putString("synopsis", movie.getSynopsis());
                     movieBundle.putString("userRating", movie.getUserRating());

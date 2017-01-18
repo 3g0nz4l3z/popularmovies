@@ -78,6 +78,10 @@ public class Movie implements Parcelable{
         return "http://image.tmdb.org/t/p/w185"+coverUrl;
     }
 
+    public String getCoverUrlId() {
+        return coverUrl;
+    }
+
     public String getOriginalTitle() {
         return originalTitle;
     }

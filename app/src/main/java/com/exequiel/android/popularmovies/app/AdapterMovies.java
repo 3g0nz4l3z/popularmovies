@@ -38,7 +38,7 @@ public class AdapterMovies extends ArrayAdapter<Movie> {
 
         View rowView = inflater.inflate(R.layout.cover_view, parent, false);
         imgCover = (ImageView) rowView.findViewById(R.id.imageViewCover);
-        // Log.d(TAG, movies.get(position).getCoverUrl());
+        Log.d(TAG, movies.get(position).getCoverUrl());
         Glide.with(fragment).load(movies.get(position).getCoverUrl()).error(R.mipmap.ic_launcher).into(imgCover);
         return rowView;
     }
